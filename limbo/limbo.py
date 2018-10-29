@@ -24,7 +24,7 @@ logger = logging.getLogger(__name__)
 
 class InvalidPluginDir(Exception):
     def __init__(self, plugindir):
-        message = "Unable to find plugin dir {0}".format(plugindir)
+        message = "Unable to find plugin dir {}".format(plugindir)
         super(InvalidPluginDir, self).__init__(message)
 
 
@@ -50,7 +50,7 @@ def init_plugins(plugindir, plugins_to_load=None):
     if not plugindir:
         plugindir = DIR("plugins")
 
-    logger.debug("plugindir: {0}".format(plugindir))
+    logger.debug("plugindir: {}".format(plugindir))
 
     if os.path.isdir(plugindir):
         pluginfiles = glob(os.path.join(plugindir, "[!_]*.py"))
@@ -73,11 +73,11 @@ def init_plugins(plugindir, plugins_to_load=None):
     for plugin in plugins:
         if plugins_to_load and plugin not in plugins_to_load:
             logger.debug(
-                "skipping plugin {0}, not in plugins_to_load {1}".format(
+                "skipping plugin {}, not in plugins_to_load {}".format(
                     plugin, plugins_to_load))
             continue
 
-        logger.debug("plugin: {0}".format(plugin))
+        logger.debug("plugin: {}".format(plugin))
         try:
             mod = importlib.import_module(plugin)
             modname = mod.__name__
@@ -95,10 +95,10 @@ def init_plugins(plugindir, plugins_to_load=None):
         # on import, and we want them not to kill our server
         except:
             logger.warning(
-                "import failed on module {0}, module not loaded".format(
+                "import failed on module {}, module not loaded".format(
                     plugin))
-            logger.warning("{0}".format(sys.exc_info()[0]))
-            logger.warning("{0}".format(traceback.format_exc()))
+            logger.warning("{}".format(sys.exc_info()[0]))
+            logger.warning("{}".format(traceback.format_exc()))
 
     sys.path = oldpath
     return hooks
@@ -113,9 +113,9 @@ def run_hook(hooks, hook, *args):
                 responses.append(h)
         except:
             logger.warning(
-                "Failed to run plugin {0}, module not loaded".format(hook))
-            logger.warning("{0}".format(sys.exc_info()[0]))
-            logger.warning("{0}".format(traceback.format_exc()))
+                "Failed to run plugin {}, module not loaded".format(hook))
+            logger.warning("{}".format(sys.exc_info()[0]))
+            logger.warning("{}".format(traceback.format_exc()))
 
     return responses
 
@@ -199,7 +199,7 @@ def loop(server, test_loop=None):
             events = server.slack.rtm_read()
             for event in events:
                 loops_without_activity = 0
-                logger.debug("got {0}".format(event))
+                logger.debug("got {}".format(event))
                 response = handle_event(event, server)
 
                 # The docs (https://api.slack.com/docs/message-threading)
@@ -257,13 +257,13 @@ def loop(server, test_loop=None):
 
 
 def relevant_environ():
-    return dict((key, os.environ[key]) for key in os.environ
-                if key.startswith("SLACK") or key.startswith("LIMBO"))
+    return {key: os.environ[key] for key in os.environ
+                if key.startswith("SLACK") or key.startswith("LIMBO")}
 
 
 def init_server(args, config, Server=LimboServer, Client=SlackClient):
     init_log(config)
-    logger.debug("config: {0}".format(config))
+    logger.debug("config: {}".format(config))
     db = init_db(args.database_name)
 
     config_plugins = config.get("plugins")
@@ -275,10 +275,10 @@ def init_server(args, config, Server=LimboServer, Client=SlackClient):
     except KeyError:
         logger.error("""Unable to find a slack token. The environment variables
 limbo sees are:
-{0}
+{}
 
 and the current config is:
-{1}
+{}
 
 Try setting your bot's slack token with:
 
@@ -316,7 +316,7 @@ def main(args):
         logger.warn("Unable to connect to Slack. Bad network?")
         raise
     except SlackLoginError:
-        logger.warn("Login Failed, invalid token <{0}>?".format(
+        logger.warn("Login Failed, invalid token <{}>?".format(
             config["token"]))
         raise
 

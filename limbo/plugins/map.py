@@ -35,7 +35,7 @@ def makemap(query):
     url = url.format(query, args["maptype"])
 
     if "zoom" in args:
-        url += "&zoom={0}".format(args["zoom"])
+        url += "&zoom={}".format(args["zoom"])
 
     return url
 

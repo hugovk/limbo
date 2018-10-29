@@ -16,7 +16,7 @@ def sh(cmd):
 
 def test_cmd():
     msg = u"!echo Iñtërnâtiônàlizætiøn"
-    out, ret = sh(u"bin/limbo -c '{0}' --pluginpath {1}".format(msg, TESTPLUGINS).encode("utf8"))
+    out, ret = sh(u"bin/limbo -c '{}' --pluginpath {}".format(msg, TESTPLUGINS).encode("utf8"))
     out = out.strip()
     assert out == msg
     assert ret == 0
@@ -26,7 +26,7 @@ def test_repl():
     proc = subprocess.Popen(["bin/limbo", "-t", "--pluginpath", TESTPLUGINS], stdout=subprocess.PIPE, stdin=subprocess.PIPE)
     out = proc.communicate(msg.encode("utf8"))[0]
     out = out.strip().decode("utf8")
-    assert out == u"limbo> {0}\nlimbo>".format(msg)
+    assert out == u"limbo> {}\nlimbo>".format(msg)
     ret = proc.returncode
     assert ret == 0
 

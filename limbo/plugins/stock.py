@@ -22,7 +22,7 @@ def stockprice(ticker):
         company, ticker = re.findall(u"^(.+?)\xa0\xa0(.+?)\xa0", soup.text,
                                      re.M)[0]
     except IndexError:
-        logging.info("Unable to find stock {0}".format(ticker))
+        logging.info("Unable to find stock {}".format(ticker))
         return ""
     price = soup.select("#price-panel .pr span")[0].text
     change, pct = soup.select("#price-panel .nwp span")[0].text.split()
@@ -32,7 +32,7 @@ def stockprice(ticker):
     emoji = ":chart_with_upwards_trend:" if change.startswith("+") \
             else ":chart_with_downwards_trend:"
 
-    return "{0} {1} {2}: {3} {4} {5} {6} {7}".format(
+    return "{} {} {}: {} {} {} {} {}".format(
         emoji, company, ticker, price, change, pct, time, emoji)
 
 

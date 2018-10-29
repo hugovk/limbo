@@ -26,7 +26,7 @@ def test_gif():
         on_message(msgobj(u"!gif bananas"), server)
 
     url = json.loads(server.slack.posted_messages[0][1]["attachments"])[0]['image_url']
-    assert url in bananas_gifs, "{0} not in {1}".format(url, bananas_gifs)
+    assert url in bananas_gifs, "{} not in {}".format(url, bananas_gifs)
 
 def test_unicode():
     server = limbo.FakeServer()

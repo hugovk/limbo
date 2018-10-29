@@ -27,16 +27,16 @@ def wiki(searchterm):
         return ""
 
     page = quote(pages[0]["title"].encode("utf8"))
-    link = "http://en.wikipedia.org/wiki/{0}".format(page)
+    link = "http://en.wikipedia.org/wiki/{}".format(page)
 
     r = requests.get(
-        "http://en.wikipedia.org/w/api.php?format=json&action=parse&page={0}".
+        "http://en.wikipedia.org/w/api.php?format=json&action=parse&page={}".
         format(page)).json()
     soup = BeautifulSoup(r["parse"]["text"]["*"], "html5lib")
     p = soup.find('p').get_text()
     p = p[:8000]
 
-    return u"{0}\n{1}".format(p, link)
+    return u"{}\n{}".format(p, link)
 
 
 def on_message(msg, server):

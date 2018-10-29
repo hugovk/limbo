@@ -13,7 +13,7 @@ from bs4 import BeautifulSoup
 
 def stock(searchterm):
     searchterm = quote(searchterm)
-    url = "https://www.shutterstock.com/search?searchterm={0}".format(
+    url = "https://www.shutterstock.com/search?searchterm={}".format(
         searchterm)
     res = requests.get(url)
     soup = BeautifulSoup(res.text, "html5lib")

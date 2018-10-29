@@ -282,7 +282,7 @@ class SlackClient(object):
                 raise
 
     def join_channel(self, name):
-        print(self.do("channels.join?name={0}".format(name)).read())
+        print(self.do("channels.join?name={}".format(name)).read())
 
     def api_call(self, method, **kwargs):
         reply = self.do(method, **kwargs)
@@ -290,7 +290,7 @@ class SlackClient(object):
 
     def do(self, request, post_data=None, files=None, **kwargs):
         post_data = {} if not post_data else post_data
-        url = 'https://slack.com/api/{0}'.format(request)
+        url = 'https://slack.com/api/{}'.format(request)
         post_data["token"] = self.token
         post_data.update(kwargs)
         return requests.post(url, data=post_data, files=files)

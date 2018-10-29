@@ -21,7 +21,7 @@ def gif(search, unsafe=False):
     searchb = quote(search.encode("utf8"))
 
     safe = "&safe=" if unsafe else "&safe=active"
-    searchurl = "https://www.google.com/search?tbs=itp:animated&tbm=isch&q={0}{1}" \
+    searchurl = "https://www.google.com/search?tbs=itp:animated&tbm=isch&q={}{}" \
         .format(searchb, safe)
 
     # this is an old iphone user agent. Seems to make google return good results.

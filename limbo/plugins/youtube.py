@@ -19,7 +19,7 @@ def youtube(searchterm):
     if not results:
         return "sorry, no videos found"
 
-    return "https://www.youtube.com{0}".format(results[0])
+    return "https://www.youtube.com{}".format(results[0])
 
 
 def on_message(msg, server):

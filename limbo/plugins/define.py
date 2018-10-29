@@ -29,10 +29,10 @@ def define(word):
 
     result = requests.get(request_url, headers=headers)
     if result.status_code == 404:
-        return "Oxford has no definition for {0}. If you're searching for the plural, try the singular term".format(
+        return "Oxford has no definition for {}. If you're searching for the plural, try the singular term".format(
             word)
     elif result.status_code != 200:
-        return "Something went wrong when searching for _{0}_! Please try again later".format(
+        return "Something went wrong when searching for _{}_! Please try again later".format(
             word)
     else:
         data = result.json()

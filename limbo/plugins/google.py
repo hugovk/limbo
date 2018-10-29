@@ -10,7 +10,7 @@ import requests
 
 def google(q):
     query = quote(q)
-    url = "https://encrypted.google.com/search?q={0}".format(query)
+    url = "https://encrypted.google.com/search?q={}".format(query)
     soup = BeautifulSoup(requests.get(url).text, "html5lib")
 
     answer = soup.findAll("h3", attrs={"class": "r"})

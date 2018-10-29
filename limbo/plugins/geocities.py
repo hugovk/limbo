@@ -15,7 +15,7 @@ def gif(searchterm):
         searchterm)
     results = requests.get(searchurl).json()
     gifs = list(
-        map(lambda x: "https://web.archive.org/web/{0}".format(x['gif']),
+        map(lambda x: "https://web.archive.org/web/{}".format(x['gif']),
             results))
     shuffle(gifs)
 
