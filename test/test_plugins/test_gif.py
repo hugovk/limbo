@@ -23,7 +23,7 @@ def msgobj(msg):
 def test_gif():
     server = limbo.FakeServer()
     with vcr.use_cassette('test/fixtures/gif_bananas.yaml'):
-        on_message(msgobj(u"!gif bananas"), server)
+        on_message(msgobj("!gif bananas"), server)
 
     url = json.loads(server.slack.posted_messages[0][1]["attachments"])[0]['image_url']
     assert url in bananas_gifs, "{} not in {}".format(url, bananas_gifs)
@@ -31,5 +31,5 @@ def test_gif():
 def test_unicode():
     server = limbo.FakeServer()
     with vcr.use_cassette('test/fixtures/gif_unicode.yaml'):
-        on_message(msgobj(u"!gif Mötörhead"), server)
+        on_message(msgobj("!gif Mötörhead"), server)
         # not blowing up == success, for our purposes

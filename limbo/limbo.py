@@ -25,7 +25,7 @@ logger = logging.getLogger(__name__)
 class InvalidPluginDir(Exception):
     def __init__(self, plugindir):
         message = "Unable to find plugin dir {}".format(plugindir)
-        super(InvalidPluginDir, self).__init__(message)
+        super().__init__(message)
 
 
 def init_log(config):

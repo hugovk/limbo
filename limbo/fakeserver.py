@@ -4,7 +4,7 @@ import time
 from .slack import User, Bot
 
 
-class FakeServer(object):
+class FakeServer:
     def __init__(self, slack=None, config=None, hooks=None, db=None):
         self.slack = slack or FakeSlack()
         self.config = config
@@ -23,7 +23,7 @@ class FakeServer(object):
         return rows
 
 
-class FakeSlack(object):
+class FakeSlack:
     def __init__(self,
                  server=None,
                  users=None,

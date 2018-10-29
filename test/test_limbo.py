@@ -77,16 +77,16 @@ def test_plugin_logs():
 
 def test_run_hook():
     hooks = limbo.init_plugins("test/plugins")
-    assert limbo.run_hook(hooks, "message", {"text": u"!echo bananas"}, None) == [u"!echo bananas"]
+    assert limbo.run_hook(hooks, "message", {"text": "!echo bananas"}, None) == ["!echo bananas"]
 
 def test_missing_hook():
     hooks = limbo.init_plugins("test/plugins")
-    assert limbo.run_hook(hooks, "nonexistant", {"text": u"!echo bananas"}, None) == []
+    assert limbo.run_hook(hooks, "nonexistant", {"text": "!echo bananas"}, None) == []
 
 # test handle_message
 
 def test_handle_message_subtype():
-    msg = u"!echo Iñtërnâtiônàlizætiøn"
+    msg = "!echo Iñtërnâtiônàlizætiøn"
     server = limbo.FakeServer()
     event = {"bot_id": "1", "text": msg}
     event["subtype"] = "message_changed"
@@ -103,7 +103,7 @@ def test_handle_message_ignores_slackbot():
     assert limbo.handle_message(event, server) == None
 
 def test_handle_message_basic():
-    msg = u"!echo Iñtërnâtiônàlizætiøn"
+    msg = "!echo Iñtërnâtiônàlizætiøn"
     event = {"user": "2", "text": msg}
 
     hooks = limbo.init_plugins("test/plugins")
@@ -149,7 +149,7 @@ def test_handle_member_left():
 # Under unclear circumstances, slack can return a None user.
 # https://github.com/llimllib/limbo/issues/40
 def test_handle_message_slack_user_nil():
-    msg = u"!echo Iñtërnâtiônàlizætiøn"
+    msg = "!echo Iñtërnâtiônàlizætiøn"
     event = {"user": "msguser", "text": msg}
     users = {"0": User("nobody", 0, "", 0)}
 
@@ -157,10 +157,10 @@ def test_handle_message_slack_user_nil():
     slack = limbo.FakeSlack(users=users)
     server = limbo.FakeServer(slack=slack, hooks=hooks)
 
-    assert limbo.handle_message(event, server) == u"!echo Iñtërnâtiônàlizætiøn"
+    assert limbo.handle_message(event, server) == "!echo Iñtërnâtiônàlizætiøn"
 
 def test_handle_bot_message():
-    msg = u"!echo Iñtërnâtiônàlizætiøn bot"
+    msg = "!echo Iñtërnâtiônàlizætiøn bot"
     event = {"bot_id": "2", "text": msg, "subtype": "bot_message"}
 
     hooks = limbo.init_plugins("test/plugins")
@@ -169,8 +169,8 @@ def test_handle_bot_message():
     assert limbo.handle_message(event, server) == msg
 
 def test_handle_edit_message():
-    oldmsg = u"old message"
-    newmsg = u"!echo new message"
+    oldmsg = "old message"
+    newmsg = "!echo new message"
     event = {"type": "message",
             "subtype": "message_changed",
             "previous_message": {"text": oldmsg},
@@ -182,7 +182,7 @@ def test_handle_edit_message():
     assert limbo.handle_message(event, server) == "Changed: {}".format(newmsg)
 
 def test_handle_delete_message():
-    oldmsg = u"!echo old message"
+    oldmsg = "!echo old message"
     event = {"type": "message",
             "subtype": "message_deleted",
             "previous_message": {"text": oldmsg, "user": "msguser"}}
@@ -197,7 +197,7 @@ def test_init_db():
     db = limbo.init_db(tf.name)
     assert type(db) == type(sqlite3.connect(":memory:"))
 
-class FakeSlackClient(object):
+class FakeSlackClient:
     def __init__(self, connect=True):
         self.connect = connect
 

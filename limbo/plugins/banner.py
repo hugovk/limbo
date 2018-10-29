@@ -16,7 +16,7 @@ ARGPARSE.add_argument('bannertext', nargs='*')
 
 def make_banner(query):
     # Slack turns -- into an emdash; un-turn it
-    query = query.replace(u"\u2014", u"--")
+    query = query.replace("\u2014", "--")
 
     ns = ARGPARSE.parse_args(query.split(" "))
     if ns.l:

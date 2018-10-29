@@ -40,7 +40,7 @@ import requests
 HUB_URL = 'https://api.github.com/{0}'
 
 
-class Github(object):
+class Github:
     def __init__(self, username, password):
         self.auth = username, password
         if not any(self.auth): self.auth = None

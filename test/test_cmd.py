@@ -15,18 +15,18 @@ def sh(cmd):
     return output, ret
 
 def test_cmd():
-    msg = u"!echo Iñtërnâtiônàlizætiøn"
-    out, ret = sh(u"bin/limbo -c '{}' --pluginpath {}".format(msg, TESTPLUGINS).encode("utf8"))
+    msg = "!echo Iñtërnâtiônàlizætiøn"
+    out, ret = sh("bin/limbo -c '{}' --pluginpath {}".format(msg, TESTPLUGINS).encode("utf8"))
     out = out.strip()
     assert out == msg
     assert ret == 0
 
 def test_repl():
-    msg = u"!echo Iñtërnâtiônàlizætiøn"
+    msg = "!echo Iñtërnâtiônàlizætiøn"
     proc = subprocess.Popen(["bin/limbo", "-t", "--pluginpath", TESTPLUGINS], stdout=subprocess.PIPE, stdin=subprocess.PIPE)
     out = proc.communicate(msg.encode("utf8"))[0]
     out = out.strip().decode("utf8")
-    assert out == u"limbo> {}\nlimbo>".format(msg)
+    assert out == "limbo> {}\nlimbo>".format(msg)
     ret = proc.returncode
     assert ret == 0
 

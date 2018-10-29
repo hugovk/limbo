@@ -19,7 +19,7 @@ def stockprice(ticker):
         requests.get(url.format(quote(ticker))).text, "html5lib")
 
     try:
-        company, ticker = re.findall(u"^(.+?)\xa0\xa0(.+?)\xa0", soup.text,
+        company, ticker = re.findall("^(.+?)\xa0\xa0(.+?)\xa0", soup.text,
                                      re.M)[0]
     except IndexError:
         logging.info("Unable to find stock {}".format(ticker))

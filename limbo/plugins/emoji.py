@@ -8,7 +8,7 @@ from emojicodedict import emojiCodeDict
 EMOJI = None
 
 
-class EmojiCache(object):
+class EmojiCache:
     def __init__(self, server):
         self.server = server
         self.last_updated = 0

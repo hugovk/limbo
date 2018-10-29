@@ -36,7 +36,7 @@ def wiki(searchterm):
     p = soup.find('p').get_text()
     p = p[:8000]
 
-    return u"{}\n{}".format(p, link)
+    return "{}\n{}".format(p, link)
 
 
 def on_message(msg, server):

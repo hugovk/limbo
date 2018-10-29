@@ -59,7 +59,7 @@ def dig(obj, *keys):
     return obj
 
 
-class SlackClient(object):
+class SlackClient:
     def __init__(self, token):
         self.token = token
         self.username = None

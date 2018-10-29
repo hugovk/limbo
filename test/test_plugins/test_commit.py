@@ -11,5 +11,5 @@ from commit import on_message
 
 def test_commit():
   with vcr.use_cassette('test/fixtures/commit.yaml'):
-    ret = on_message({"text": u"!commit"}, None)
+    ret = on_message({"text": "!commit"}, None)
     assert 'stuff' in ret

@@ -11,12 +11,12 @@ from stockphoto import on_message
 
 def test_basic():
     with vcr.use_cassette('test/fixtures/stockphoto_basic.yaml'):
-        ret = on_message({"text": u"!stock woman eating salad"}, None)
+        ret = on_message({"text": "!stock woman eating salad"}, None)
         assert ret in WOMEN_EATING_SALAD
 
 def test_unicode():
     with vcr.use_cassette('test/fixtures/stockphoto_unicode.yaml'):
-        ret = on_message({"text": u"!stock übermensch"}, None)
+        ret = on_message({"text": "!stock übermensch"}, None)
         # not blowing up == success
 
 

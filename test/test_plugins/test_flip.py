@@ -10,7 +10,7 @@ sys.path.insert(0, os.path.join(DIR, '../../limbo/plugins'))
 from flip import on_message
 
 def test_no_args():
-    ret = on_message({"text": u"!flip"}, None)
+    ret = on_message({"text": "!flip"}, None)
     assert "heads" in ret
     assert "tails" in ret
 
@@ -19,7 +19,7 @@ def test_count_flips_no_args():
     n = 1000
     heads = 0
     for i in range(n):
-        ret = on_message({"text": u"!flip"}, None)
+        ret = on_message({"text": "!flip"}, None)
         if ret.startswith("heads"):
             heads += 1
 
@@ -27,13 +27,13 @@ def test_count_flips_no_args():
     assert 450 < heads < 550
 
 def test_some_args():
-    ret = on_message({"text": u"!flip peter, paul, mary"}, None)
+    ret = on_message({"text": "!flip peter, paul, mary"}, None)
     assert "peter" in ret
     assert "paul" in ret
     assert "mary" in ret
 
 def test_unicode():
-    ret = on_message({"text": u"!flip Харито́н, Ки́р, Кири́лл"}, None)
-    assert u"Кири́лл" in ret
-    assert u"Ки́р" in ret
-    assert u"Кири́лл" in ret
+    ret = on_message({"text": "!flip Харито́н, Ки́р, Кири́лл"}, None)
+    assert "Кири́лл" in ret
+    assert "Ки́р" in ret
+    assert "Кири́лл" in ret
