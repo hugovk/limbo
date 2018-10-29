@@ -19,8 +19,6 @@ from .fakeserver import FakeServer
 CURDIR = os.path.abspath(os.path.dirname(__file__))
 DIR = functools.partial(os.path.join, CURDIR)
 
-PYTHON3 = sys.version_info[0] > 2
-
 logger = logging.getLogger(__name__)
 
 
@@ -291,22 +289,6 @@ export SLACK_TOKEN=<your-slack-bot-token>
     return server
 
 
-# decode a string. if str is a python 3 string, do nothing.
-def decode(str_, codec='utf8'):
-    if PYTHON3:
-        return str_
-    else:
-        return str_.decode(codec)
-
-
-# encode a string. if str is a python 3 string, do nothing.
-def encode(str_, codec='utf8'):
-    if PYTHON3:
-        return str_
-    else:
-        return str_.encode(codec)
-
-
 def main(args):
     config = init_config()
     if args.test:
@@ -316,9 +298,8 @@ def main(args):
     elif args.command is not None:
         init_log(config)
         db = init_db(args.database_name)
-        cmd = decode(args.command)
         print(
-            run_cmd(cmd,
+            run_cmd(args.command,
                     FakeServer(db=db), args.hook, args.pluginpath,
                     config.get("plugins")))
         return
@@ -352,7 +333,7 @@ def run_cmd(cmd, server, hook, pluginpath, plugins_to_load):
         'team': None,
         'channel': 'repl_channel'
     }
-    return encode(handle_event(event, server))
+    return handle_event(event, server)
 
 
 # raw_input in 2.6 is input in python 3. Set `input` to the correct function
@@ -365,7 +346,7 @@ except NameError:
 def repl(server, args):
     try:
         while 1:
-            cmd = decode(input("limbo> "))
+            cmd = input("limbo> ")
             if cmd.lower() == "quit" or cmd.lower() == "exit":
                 return
 

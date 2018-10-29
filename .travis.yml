@@ -12,9 +12,6 @@ matrix:
   include:
     - os: linux
       dist: xenial
-      python: 2.7
-    - os: linux
-      dist: xenial
       python: 3.5
     - os: linux
       dist: xenial
@@ -24,4 +21,4 @@ matrix:
       python: 3.7
     - os: linux
       dist: trusty
-      python: pypy
+      python: pypy3
